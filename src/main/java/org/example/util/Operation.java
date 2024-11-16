@@ -6,12 +6,12 @@ public enum Operation {
     MULTIPLY('*'),
     DIVISION('/');
 
-    private char operChar;
-    Operation(char operChar){
-        this.operChar = operChar;
+    private char operationChar;
+    Operation(char operationChar){
+        this.operationChar = operationChar;
     }
 
-    public char getOperChar() {
-        return operChar;
+    public char getOperationChar() {
+        return operationChar;
     }
 }

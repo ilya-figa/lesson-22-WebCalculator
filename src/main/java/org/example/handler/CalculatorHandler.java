@@ -1,15 +1,16 @@
 package org.example.handler;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.example.util.Calculator;
+import org.example.util.Response;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CalculatorHandler implements HttpHandler {
-
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         String query = exchange.getRequestURI().getQuery();
@@ -18,12 +19,16 @@ public class CalculatorHandler implements HttpHandler {
 
         String example = parameters.get("example");
         System.out.println("example" + example);
-        String message = "Answer %s!".formatted(Calculator.calculation(example));
 
-        exchange.sendResponseHeaders(200, message.length());
+        Response response = new Response();
+        response.setResult(Calculator.calculation(example));
 
-        exchange.getResponseBody().write(message.getBytes());
+        Gson gson = new Gson();
+        String json = gson.toJson(response);
 
+        exchange.getResponseHeaders().add("Content-Type", "application/json");
+        exchange.sendResponseHeaders(200, json.length());
+        exchange.getResponseBody().write(json.getBytes());
         exchange.getResponseBody().close();
     }
 

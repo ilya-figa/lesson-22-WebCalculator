@@ -10,9 +10,9 @@ public class Calculator {
         try {
             Double leftNumber = null, rightNumber = null;
             Operation executionOperation= null;
-            for(int i = 1; i < example.length(); i++){
+            for(int i = 0; i < example.length(); i++){
                 for(Operation operation: ALL_OPERATIONS){
-                    if(example.charAt(i) == operation.getOperChar()){
+                    if(example.charAt(i) == operation.getOperationChar()){
                         executionOperation = operation;
                         leftNumber = Double.parseDouble(example.substring(0, i));
                         rightNumber = Double.parseDouble(example.substring(i+1,example.length()));
